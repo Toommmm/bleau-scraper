@@ -23,7 +23,6 @@ boulder_info = [[0]*60 for i in range(6)]
 
 mydivs = soup.find_all("div", class_="row lvar")
 for div in mydivs:
-  counter = counter + 1
 
   number = div.contents[1].get_text().strip()
   print 'Nr ', number
@@ -66,7 +65,9 @@ for div in mydivs:
 #    if 'gilles' in str(photo):
 #      print photo
 
+# End of loop over boulders
   print ''
+  counter = counter + 1
 
 
 # In this case, we will load templates off the filesystem.
@@ -82,7 +83,7 @@ templateLoader = jinja2.FileSystemLoader( searchpath="/" )
 templateEnv = jinja2.Environment( loader=templateLoader )
 
 # This constant string specifies the template file we will use.
-TEMPLATE_FILE = "/home/tom/Documents/Topo/scraper/template.html"
+TEMPLATE_FILE = "/home/tom/Documents/Topo/bleauScraper/template.html"
 
 # Read the template file using the environment object.
 # This also constructs our Template object.
@@ -90,12 +91,12 @@ template = templateEnv.get_template( TEMPLATE_FILE )
 
 # Specify any input variables to the template as a dictionary.
 templateVars = { "title"  : "Test Example",
-                 "numb"   : boulder_info[0],
-                 "name"   : boulder_info[1],
-                 "grad"   : boulder_info[2],
-                 "open"   : boulder_info[3],
-                 "type"   : boulder_info[4],
-                 "info"   : boulder_info[5]}
+       "numb"   : boulder_info[0][0:counter],
+       "name"   : boulder_info[1][0:counter],
+       "grad"   : boulder_info[2][0:counter],
+       "open"   : boulder_info[3][0:counter],
+       "type"   : boulder_info[4][0:counter],
+       "info"   : boulder_info[5][0:counter]}
 
 # Finally, process the template to produce our final text.
 outputText = template.render( templateVars )

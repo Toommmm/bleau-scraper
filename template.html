@@ -4,19 +4,57 @@
 <meta charset="UTF-8" />
 
 <title>{{ title }}</title>
+
+<style>
+
+div.boulder-full {
+    background-color:white;
+    color:black;
+    margin:20px;
+}
+div.boulder-numb {
+    background-color:white;
+    color:black;
+    display:inline;
+}
+div.boulder-rest {
+    background-color:white;
+    color:black;
+    display:inline;
+}
+div.boulder-main {
+    background-color:white;
+    color:black;
+    display:inline;
+}
+div.boulder-info {
+    background-color:white;
+    color:grey;
+}
+</style>
+
+
 </head>
 
 <body>
 
 {% for boulder in numb %} 
 
-<div class="col-xs-11">
-  {{ boulder }}
-  <b> {{ name[loop.index0] }} </b>
-  {{ grad[loop.index0] }}
-  <em> {{ open[loop.index0] }} </em>
-  {{ type[loop.index0] }} <br>
-  {{ info[loop.index0] }} <br>
+<div class="boulder-full">
+  <div class="boulder-numb"> 
+    {{ boulder }} 
+  </div>
+  <div class="boulder-rest">
+    <div class="boulder-main">
+      <b> {{ name[loop.index0] }} </b>
+      {{ grad[loop.index0] }}
+      <em> {{ open[loop.index0] }} </em>
+      {{ type[loop.index0] }} 
+    </div>
+    <div class="boulder-info">
+      {{ info[loop.index0] }} 
+    </div>
+  </div>
 </div>
 
 {% endfor %}
