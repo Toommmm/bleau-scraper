@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+
+<title>{{ title }}</title>
+</head>
+
+<body>
+
+{% for boulder in numb %} 
+
+<div class="col-xs-11">
+  {{ boulder }}
+  <b> {{ name[loop.index0] }} </b>
+  {{ grad[loop.index0] }}
+  <em> {{ open[loop.index0] }} </em>
+  {{ type[loop.index0] }} <br>
+  {{ info[loop.index0] }} <br>
+</div>
+
+{% endfor %}
+
+</body>
+</html>
