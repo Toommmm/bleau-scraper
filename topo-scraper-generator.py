@@ -6,25 +6,42 @@ import pdfkit
 from bs4 import BeautifulSoup
 
 # Bois Rond Auberge
-response = urllib2.urlopen("https://bleau.info/topos/topo244.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo244.html" + "?locale=en")
 # Mont Simonet 
 #response = urllib2.urlopen("https://bleau.info/topos/topo247.html" + "?locale=en")
 # Rocher de la Salamandre Est
 #response = urllib2.urlopen("https://bleau.info/topos/topo1176.html" + "?locale=en")
 # Apremont Haut des Gorges
-#response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
+response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
+# Apremont Portes du Desert
+response = urllib2.urlopen("https://bleau.info/topos/topo1170.html" + "?locale=en")
 
+# Open page and get area name
 soup = BeautifulSoup(response,"lxml")
 title = soup.title.string
 area = title[0:title.find(" - ")]
 print area
 
+# Get info to reach the area
+mydiv9 = soup.find_all("div", class_="col-md-6")
+area_over = "http://www.bleau.info" + str(mydiv9[0].find('a')['href']) + "?locale=en"
+response3 = urllib2.urlopen(area_over)
+soup3 = BeautifulSoup(response3,"lxml")
+
+mydiv8 = soup3.find_all("p")
+area_info = mydiv8[0].get_text().strip()
+print area_info
+
+topo_counter = 0
+topo_list = [0]*10
+
 mydiv0 = soup.find_all("div", class_="topo_photo")
 for div0 in mydiv0:
-  topo = "http://www.bleau.info" + str(div0.find('a')['href'])
-  print topo
+  topo_list[topo_counter] = "http://www.bleau.info" + str(div0.find('a')['href'])
+  print topo_list[topo_counter]
+  topo_counter = topo_counter + 1
 
-counter = 0
+boulder_counter = 0
 boulder_info = [[0]*200 for i in range(10)]
 
 mydivs = soup.find_all("div", class_="row lvar")
@@ -33,7 +50,7 @@ for div in mydivs:
   number = div.contents[1].get_text().strip()
   print 'Nr ', number
 
-  boulder_info[0][counter] = unicode(number)
+  boulder_info[0][boulder_counter] = unicode(number)
 
 # 0 - Name
 # 1 - Grade
@@ -62,25 +79,25 @@ for div in mydivs:
   for i in range(len(info)):
     print i, info[i]
 
-  boulder_info[1][counter] = unicode(info[0])
+  boulder_info[1][boulder_counter] = unicode(info[0])
 
-  boulder_info[2][counter] = unicode(info[1])
+  boulder_info[2][boulder_counter] = unicode(info[1])
   if (info[2] != ""): 
-    boulder_info[2][counter] = boulder_info[2][counter] + "(" + unicode(info[2]) + ")"
+    boulder_info[2][boulder_counter] = boulder_info[2][boulder_counter] + "(" + unicode(info[2]) + ")"
 
-  boulder_info[3][counter] = unicode(info[3])
+  boulder_info[3][boulder_counter] = unicode(info[3])
   if (4 < len(info) and info[4] != ""): 
-    boulder_info[3][counter] = boulder_info[3][counter] + ", " + unicode(info[4])
+    boulder_info[3][boulder_counter] = boulder_info[3][boulder_counter] + ", " + unicode(info[4])
   if (5 < len(info) and info[5] != ""): 
-    boulder_info[3][counter] = boulder_info[3][counter] + ", " + unicode(info[5])
+    boulder_info[3][boulder_counter] = boulder_info[3][boulder_counter] + ", " + unicode(info[5])
 
-  boulder_info[4][counter] = unicode(info[6])
+  boulder_info[4][boulder_counter] = unicode(info[6])
   if (7 < len(info) and info[7] != ""): 
-    boulder_info[4][counter] = boulder_info[4][counter] + ", " + unicode(info[7])
+    boulder_info[4][boulder_counter] = boulder_info[4][boulder_counter] + ", " + unicode(info[7])
   if (8 < len(info) and info[8] != ""): 
-    boulder_info[4][counter] = boulder_info[4][counter] + ", " + unicode(info[8])
+    boulder_info[4][boulder_counter] = boulder_info[4][boulder_counter] + ", " + unicode(info[8])
   if (9 < len(info) and info[9] != ""): 
-    boulder_info[4][counter] = boulder_info[4][counter] + ", " + unicode(info[9])
+    boulder_info[4][boulder_counter] = boulder_info[4][boulder_counter] + ", " + unicode(info[9])
 
   boulder = "http://www.bleau.info" + str(div.find('a')['href'] + "?locale=en")
   response2 = urllib2.urlopen(boulder)
@@ -90,7 +107,7 @@ for div in mydivs:
   for div2 in mydiv2: 
     extra = div2.get_text().strip()
     print 'Info ',extra
-    boulder_info[5][counter] = unicode(extra) 
+    boulder_info[5][boulder_counter] = unicode(extra) 
 
 #  mydiv3 = soup2.find_all("div", class_="bp_wrapper")
 #  for div3 in mydiv3: 
@@ -102,7 +119,7 @@ for div in mydivs:
 
 # End of loop over boulders
   print ''
-  counter = counter + 1
+  boulder_counter = boulder_counter + 1
 
 
 # In this case, we will load templates off the filesystem.
@@ -126,12 +143,14 @@ template = templateEnv.get_template( TEMPLATE_FILE )
 
 # Specify any input variables to the template as a dictionary.
 templateVars = { "title"  : area,
-       "numb"   : boulder_info[0][0:counter],
-       "name"   : boulder_info[1][0:counter],
-       "grad"   : boulder_info[2][0:counter],
-       "open"   : boulder_info[3][0:counter],
-       "type"   : boulder_info[4][0:counter],
-       "info"   : boulder_info[5][0:counter]}
+       "road"     : area_info,
+       "list"     : topo_list[0:topo_counter],
+       "numb"     : boulder_info[0][0:boulder_counter],
+       "name"     : boulder_info[1][0:boulder_counter],
+       "grad"     : boulder_info[2][0:boulder_counter],
+       "open"     : boulder_info[3][0:boulder_counter],
+       "type"     : boulder_info[4][0:boulder_counter],
+       "info"     : boulder_info[5][0:boulder_counter]}
 
 # Finally, process the template to produce our final text.
 outputText = template.render( templateVars )

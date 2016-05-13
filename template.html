@@ -13,6 +13,22 @@
 
 <h1>{{ title }}</h1>
 
+<div class="boulder full">
+{{ road }} 
+</div>
+
+<h2>Topo</h2>
+
+{% for topo in list %} 
+
+<a href={{ topo }}><img src={{ topo }} width=95%></a>
+<br>
+
+{% endfor %}
+
+
+<h2>Boulders</h2>
+
 {% for boulder in numb %} 
 
 <div class="boulder-full">
