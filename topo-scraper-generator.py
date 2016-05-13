@@ -1,9 +1,11 @@
+import urllib
 import urllib2
 import re
 import jinja2
 import codecs
 import pdfkit
 from bs4 import BeautifulSoup
+from operator import itemgetter
 
 # Bois Rond Auberge
 #response = urllib2.urlopen("https://bleau.info/topos/topo244.html" + "?locale=en")
@@ -12,7 +14,7 @@ from bs4 import BeautifulSoup
 # Rocher de la Salamandre Est
 #response = urllib2.urlopen("https://bleau.info/topos/topo1176.html" + "?locale=en")
 # Apremont Haut des Gorges
-response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
 # Apremont Portes du Desert
 response = urllib2.urlopen("https://bleau.info/topos/topo1170.html" + "?locale=en")
 
@@ -32,6 +34,7 @@ mydiv8 = soup3.find_all("p")
 area_info = mydiv8[0].get_text().strip()
 print area_info
 
+# Get the topos
 topo_counter = 0
 topo_list = [0]*10
 
@@ -39,6 +42,7 @@ mydiv0 = soup.find_all("div", class_="topo_photo")
 for div0 in mydiv0:
   topo_list[topo_counter] = "http://www.bleau.info" + str(div0.find('a')['href'])
   print topo_list[topo_counter]
+  urllib.urlretrieve(str(topo_list[topo_counter]), area.replace(" ","") + "-" + str(topo_counter) + ".jpg")
   topo_counter = topo_counter + 1
 
 boulder_counter = 0
@@ -52,6 +56,7 @@ for div in mydivs:
 
   boulder_info[0][boulder_counter] = unicode(number)
 
+# info
 # 0 - Name
 # 1 - Grade
 # 2 - Grade (bis)
@@ -62,6 +67,14 @@ for div in mydivs:
 # 7 - Type (bis)
 # 8 - Type (bis)
 # 9 - Type (bis)
+
+# boulder_info
+# 1 - Name
+# 2 - Grades
+# 3 - Openers
+# 4 - Types
+# 5 - Extra
+# 6 - Ascents
 
   temp = div.contents[3].get_text().strip().replace('\n',', ')
   info = [x.strip() for x in temp.split(',')]
@@ -117,9 +130,22 @@ for div in mydivs:
 #    if 'gilles' in str(photo):
 #      print photo
 
+  repeats = 0
+  mydiv4 = soup2.find_all("div", class_="bopins")
+  for div4 in mydiv4: 
+    ascents = div4.get_text().strip()
+    if (unicode(ascents).find('ascents') > 0):
+      repeats = ascents[unicode(ascents).find('(')+1:unicode(ascents).find(' total)')]
+  print 'Ascents ', repeats
+  boulder_info[6][boulder_counter] = int(repeats) 
+ 
+
+
 # End of loop over boulders
   print ''
   boulder_counter = boulder_counter + 1
+
+boulder_popu = zip(*sorted(zip(*boulder_info),key=itemgetter(6),reverse=True))
 
 
 # In this case, we will load templates off the filesystem.
@@ -150,7 +176,13 @@ templateVars = { "title"  : area,
        "grad"     : boulder_info[2][0:boulder_counter],
        "open"     : boulder_info[3][0:boulder_counter],
        "type"     : boulder_info[4][0:boulder_counter],
-       "info"     : boulder_info[5][0:boulder_counter]}
+       "info"     : boulder_info[5][0:boulder_counter],
+       "reps"     : boulder_info[6][0:boulder_counter],
+       "numb"     : boulder_info[0][0:boulder_counter],
+       "numb_popu": boulder_popu[0][0:10],
+       "name_popu": boulder_popu[1][0:10],
+       "grad_popu": boulder_popu[2][0:10],
+       "reps_popu": boulder_popu[6][0:10]}
 
 # Finally, process the template to produce our final text.
 outputText = template.render( templateVars )

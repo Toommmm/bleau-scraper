@@ -26,6 +26,17 @@
 
 {% endfor %}
 
+<h2>Top 10 boulders</h2>
+
+<div class="boulder-full">
+{% for boulder in numb_popu %} 
+
+    {{ boulder }} 
+      <b>{{ name_popu[loop.index0] }}</b>,
+      {{ grad_popu[loop.index0] }},
+      <i>{{ reps_popu[loop.index0] }} repeats</i><br>
+{% endfor %}
+</div>
 
 <h2>Boulders</h2>
 
@@ -37,10 +48,11 @@
   </div>
   <div class="boulder-rest">
     <div class="boulder-main">
-      <b> {{ name[loop.index0] }} </b>
-      {{ grad[loop.index0] }}
-      <em> {{ open[loop.index0] }} </em>
-      {{ type[loop.index0] }} 
+      <b> {{ name[loop.index0] }}</b>,
+      {{ grad[loop.index0] }},
+      <em> {{ open[loop.index0] }}</em>,
+      {{ type[loop.index0] }},
+      <i> {{ reps[loop.index0] }} repeats</i> 
     </div>
     <div class="boulder-info">
       {{ info[loop.index0] }} 

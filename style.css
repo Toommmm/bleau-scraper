@@ -1,13 +1,12 @@
 html,body{
-  height:95%;
-  width:95%;
-  font-size:100%;
-  font-family:verdana;
+  height:100%;
+  width:100%;
+  font-size:80%;
+  font-family:arial;
 }
 
 h1 {
   font-size:2.0em;
-  font-family:verdana;
   font-style:normal;
 }
 h2 {
