@@ -13,10 +13,22 @@ from operator import itemgetter
 #response = urllib2.urlopen("https://bleau.info/topos/topo247.html" + "?locale=en")
 # Rocher de la Salamandre Est
 #response = urllib2.urlopen("https://bleau.info/topos/topo1176.html" + "?locale=en")
+# Apremont Bizons
+#response = urllib2.urlopen("https://bleau.info/topos/topo254.html" + "?locale=en")
+# Apremont Haut des Gorges
+#response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
+# Apremont Butte aux Peintres
+response = urllib2.urlopen("https://bleau.info/topos/topo145.html" + "?locale=en")
+# Apremont Sanglier
+response = urllib2.urlopen("https://bleau.info/topos/topo267.html" + "?locale=en")
+# Apremont Butte aux Dames (Sector Nord)
+response = urllib2.urlopen("https://bleau.info/topos/topo1163.html" + "?locale=en")
 # Apremont Haut des Gorges
 #response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
 # Apremont Portes du Desert
-response = urllib2.urlopen("https://bleau.info/topos/topo1170.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo1170.html" + "?locale=en")
+# Apremont Desert
+#response = urllib2.urlopen("https://bleau.info/topos/topo1175.html" + "?locale=en")
 
 # Open page and get area name
 soup = BeautifulSoup(response,"lxml")
