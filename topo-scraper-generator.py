@@ -7,6 +7,8 @@ import pdfkit
 from bs4 import BeautifulSoup
 from operator import itemgetter
 
+# Rocher des Souris
+response = urllib2.urlopen("https://bleau.info/topos/topo218.html" + "?locale=en")
 # Bois Rond Auberge
 #response = urllib2.urlopen("https://bleau.info/topos/topo244.html" + "?locale=en")
 # Mont Simonet 
@@ -18,11 +20,11 @@ from operator import itemgetter
 # Apremont Haut des Gorges
 #response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
 # Apremont Butte aux Peintres
-response = urllib2.urlopen("https://bleau.info/topos/topo145.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo145.html" + "?locale=en")
 # Apremont Sanglier
-response = urllib2.urlopen("https://bleau.info/topos/topo267.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo267.html" + "?locale=en")
 # Apremont Butte aux Dames (Sector Nord)
-response = urllib2.urlopen("https://bleau.info/topos/topo1163.html" + "?locale=en")
+#response = urllib2.urlopen("https://bleau.info/topos/topo1163.html" + "?locale=en")
 # Apremont Haut des Gorges
 #response = urllib2.urlopen("https://bleau.info/topos/topo1169.html" + "?locale=en")
 # Apremont Portes du Desert
