@@ -175,7 +175,7 @@ templateLoader = jinja2.FileSystemLoader( searchpath="/" )
 templateEnv = jinja2.Environment( loader=templateLoader )
 
 # This constant string specifies the template file we will use.
-TEMPLATE_FILE = "/home/tom/Documents/Topo/bleauScraper/template.html"
+TEMPLATE_FILE = "template.html"
 
 # Read the template file using the environment object.
 # This also constructs our Template object.
