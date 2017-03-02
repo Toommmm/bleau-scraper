@@ -4,48 +4,48 @@
 import boulder as fb
 
 # import external stuff
-import urllib 
-import urllib2
+from urllib.request import urlopen 
+from urllib.request import urlretrieve 
 
 from bs4 import BeautifulSoup
 from operator import itemgetter
 
 # Open correct page: the topo page
-response = urllib2.urlopen("https://bleau.info/topos/topo218.html" + "?locale=en")
+response1 = urlopen("https://bleau.info/topos/topo218.html" + "?locale=en")
 
 # Open page and get area name
-soup = BeautifulSoup(response,"lxml")
+soup = BeautifulSoup(response1,"lxml")
 soupTitle = soup.title.string
 soupName = soupTitle[0:soupTitle.find(" - ")]
 
 # Make new area 
 area = fb.Area(soupName)
-print "Scraping " + area.getName()
+print("Scraping " + area.getName())
 
-# Get info to reach the area, this can be found on the page above: the area page
-mydiv9 = soup.find_all("div", class_="col-md-6")
+# Get info to reach the area, this can be found on the parent page: the area page
+mydiv9 = soup.findAll("div", class_="col-md-6")
 area_over = "http://www.bleau.info" + str(mydiv9[0].find('a')['href']) + "?locale=en"
-response3 = urllib2.urlopen(area_over)
+response3 = urlopen(area_over)
 soup3 = BeautifulSoup(response3,"lxml")
 
 # Get the info 
-mydiv8 = soup3.find_all("p")
+mydiv8 = soup3.findAll("p")
 soupInfo = mydiv8[0].get_text().strip()
 area.setInfo(soupInfo)
-print "How to get there: \n" + area.getInfo()
+print("How to get there: \n" + area.getInfo())
 
 # Make a list of all topo images
-mydiv0 = soup.find_all("div", class_="topo_photo")
+mydiv0 = soup.findAll("div", class_="topo_photo")
 for div0 in mydiv0:
   soupUrl = "http://www.bleau.info" + str(div0.find('a')['href'])
   area.addTopo(soupUrl)
-  urllib.urlretrieve(str(soupUrl), area.getName().replace(" ","") + "-" + str(area.getToponumber()) + ".jpg")
+  urlretrieve(str(soupUrl), area.getName().replace(" ","") + "-" + str(area.getToponumber()) + ".jpg")
 
 
 # Loop over all boulders in the topo
 boulder_counter = 0
 
-mydivs = soup.find_all("div", class_="row lvar")
+mydivs = soup.findAll("div", class_="row lvar")
 for div in mydivs:
 
   number = div.contents[1].get_text().strip()
@@ -72,7 +72,7 @@ for div in mydivs:
 
   temp = div.contents[3].get_text().strip().replace('\n',', ')
   info = [x.strip() for x in temp.split(',')]
-  info = filter(None,info)
+  info = list(filter(None,info))
   if(not str(info[2][0]).isdigit()):
     info.insert(2,"")
   if((not str(info[3][0]).isupper()) and \
@@ -109,22 +109,22 @@ for div in mydivs:
 
 # Get info on how to climb the boulder, this can be found on the boulder page
   boulder = "http://www.bleau.info" + str(div.find('a')['href'] + "?locale=en")
-  response2 = urllib2.urlopen(boulder)
+  response2 = urlopen(boulder)
   soup2 = BeautifulSoup(response2,"lxml")
 
-  mydiv2 = soup2.find_all("div", class_="bdesc")
+  mydiv2 = soup2.findAll("div", class_="bdesc")
   for div2 in mydiv2: 
     extra = div2.get_text().strip()
-    tempboulder.setInfo(unicode(extra))
+    tempboulder.setInfo(str(extra))
 
 # Get the number of repeats of the boulder
   repeats = 0
 
-  mydiv4 = soup2.find_all("div", class_="bopins")
+  mydiv4 = soup2.findAll("div", class_="bopins")
   for div4 in mydiv4: 
     ascents = div4.get_text().strip()
-    if (unicode(ascents).find('ascents') > 0):
-      repeats = int(ascents[unicode(ascents).find('(')+1:unicode(ascents).find(' total)')])
+    if (str(ascents).find('ascents') > 0):
+      repeats = int(ascents[str(ascents).find('(')+1:str(ascents).find(' total)')])
   tempboulder.setAscents(repeats)
   
 #  print temoboulder.getInfo()
@@ -132,13 +132,15 @@ for div in mydivs:
 #  print tempboulder.getGrade()
 #  print tempboulder.getAscents()
 
-  print tempboulder.getNumb() , tempboulder.getName(), tempboulder.getGrade(), tempboulder.getAscents()
+  print(tempboulder.getNumb() , tempboulder.getName(), tempboulder.getGrade(), tempboulder.getAscents())
   area.addBoulder(tempboulder)
 
 # End loop over all boulders in the topo
-print area.getBouldernumber()
+print(area.getBouldernumber())
 
 # Sort according to popularity
+print()
+print("The most popular boulders are")
 popular = sorted(area.boulder_list, key=itemgetter("ascents"), reverse=True)
 for item in popular[:10]:
-	print item.name, item.grade, item.ascents
+	print(item.name, item.grade, item.ascents)

@@ -22,7 +22,7 @@ class Area(object):
 
     def getBoulderlist(self):
         for boul in self.boulder_list:
-            print boul.getName()
+            print(boul.getName())
 
     def getBouldernumber(self):
         return len(self.boulder_list)
