@@ -2,6 +2,7 @@
 
 # import own classes
 import boulder as fb
+import creator as cr
 
 # import external stuff
 from urllib.request import urlopen 
@@ -11,7 +12,7 @@ from bs4 import BeautifulSoup
 from operator import itemgetter
 
 # Open correct page: the topo page
-response1 = urlopen("https://bleau.info/topos/topo218.html" + "?locale=en")
+response1 = urlopen("https://bleau.info/topos/topo244.html" + "?locale=en")
 
 # Open page and get area name
 soup = BeautifulSoup(response1,"lxml")
@@ -32,7 +33,9 @@ soup3 = BeautifulSoup(response3,"lxml")
 mydiv8 = soup3.findAll("p")
 soupInfo = mydiv8[0].get_text().strip()
 area.setInfo(soupInfo)
+print()
 print("How to get there: \n" + area.getInfo())
+print()
 
 # Make a list of all topo images
 mydiv0 = soup.findAll("div", class_="topo_photo")
@@ -136,7 +139,8 @@ for div in mydivs:
   area.addBoulder(tempboulder)
 
 # End loop over all boulders in the topo
-print(area.getBouldernumber())
+print()
+print("Boulders found: ",area.getBouldernumber())
 
 # Sort according to popularity
 print()
@@ -144,3 +148,7 @@ print("The most popular boulders are")
 popular = sorted(area.boulder_list, key=itemgetter("ascents"), reverse=True)
 for item in popular[:10]:
 	print(item.name, item.grade, item.ascents)
+
+print()
+print(vars(area))
+cr.create_topo(area)

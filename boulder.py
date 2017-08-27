@@ -1,4 +1,5 @@
 # file boulder.py
+from operator import itemgetter
 
 class Area(object):
 
@@ -35,6 +36,9 @@ class Area(object):
 
     def getToponumber(self):
         return len(self.topo_list)
+
+    def popularBoulders(self):
+        return sorted(self.boulder_list, key=itemgetter("ascents"), reverse=True)
 
 class Boulder(dict):
 
