@@ -1,10 +1,14 @@
+import os
+
 import jinja2
 import codecs
+import pdfkit
 
-def create_topo(area):
+def create_topo(location,area):
 
     print()
     print("Creating the topo")
+    print()
 
     # In this case, we will load templates off the filesystem.
     # This means we must construct a FileSystemLoader object.
@@ -44,7 +48,17 @@ def create_topo(area):
     # Finally, process the template to produce our final text.
     outputText = template.render( templateVars )
 
-    htmlfile=codecs.open(area.getName().replace(' ','')+'.html','w',encoding='utf-8')
+    filename = area.getName().replace(' ','')+'.html'
+    fullfilename = os.path.join(location, filename)
+
+    htmlfile=codecs.open(fullfilename,'w',encoding='utf-8')
     htmlfile.write(outputText)
     htmlfile.close()
+
+    print("Creating a pdf version")
+    print()
+
+    options={'page-size':'A4', 'dpi':400}
+
+    pdfkit.from_file(fullfilename,fullfilename.replace('.html','.pdf'),options=options)
 

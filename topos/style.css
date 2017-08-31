@@ -1,8 +1,12 @@
 html,body{
-  height:100%;
-  width:100%;
-  font-size:80%;
-  font-family:arial;
+  height:297mm;
+  width:210mm;
+  font-size:90%;
+  font-family:sans-serif;
+  margin-top: 10mm;
+  margin-bottom: 10mm;
+  margin-right: 10mm;
+  margin-left: 10mm;
 }
 
 h1 {
