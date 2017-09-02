@@ -23,30 +23,40 @@ p {
   font-size:0.875em;
 }
 
+div.info {
+	text-align: justify;
+}
 div.boulder-full {
     background-color:white;
     color:black;
-    margin:20px;
+	padding-bottom:1px;
 }
 div.boulder-numb {
     background-color:white;
     color:black;
-    display:inline;
-
+	width:20px;
+    display:table-cell;
 }
 div.boulder-rest {
     background-color:white;
     color:black;
-    display:inline;
+    display:table-cell;
+	margin-left:10px;
 }
 div.boulder-main {
     background-color:white;
     color:black;
     display:inline;
+	margin-left:15px;
 }
 div.boulder-info {
     background-color:white;
     color:grey;
+    display:block;
+	text-align: justify;
+	margin-top:3px;
+	margin-left:15px;
+	padding-bottom:10px;
 }
 </style>
 

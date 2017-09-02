@@ -58,7 +58,15 @@ def create_topo(location,area):
     print("Creating a pdf version")
     print()
 
-    options={'page-size':'A4', 'dpi':400}
+#    options={'page-size':'A4', 'dpi':400}
+    options = {
+    'user-style-sheet':'topos/style.css',
+    'encoding': 'UTF-8',
+#    'margin-left': '15mm',
+#    'margin-right': '15mm',
+    'margin-bottom': '15mm',
+    'margin-top': '15mm'
+}
 
     pdfkit.from_file(fullfilename,fullfilename.replace('.html','.pdf'),options=options)
 

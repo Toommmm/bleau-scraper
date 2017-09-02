@@ -2,6 +2,11 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
+<meta name="pdfkit-page_size" content="LA4"/>
+<meta name="pdfkit-margin_top" content="1cm"/>
+<meta name="pdfkit-margin_right" content="1cm"/>
+<meta name="pdfkit-margin_bottom" content="5cm"/>
+<meta name="pdfkit-margin_left" content="1cm"/>
 
 <title>{{ title }}</title>
 
@@ -13,11 +18,9 @@
 
 <h1>{{ title }}</h1>
 
-<div class="boulder full">
+<div class="info">
 {{ road }} 
 </div>
-
-<h2>Topo</h2>
 
 {% for topo in list %} 
 
@@ -26,17 +29,25 @@
 
 {% endfor %}
 
-<h2>Top 10 boulders</h2>
+<h2>Popular boulders</h2>
 
-<div class="boulder-full">
 {% for boulder in numb_popu %} 
 
+<div class="boulder-full">
+
+  <div class="boulder-numb"> 
     {{ boulder }} 
+  </div>
+  <div class="boulder-rest">
+    <div class="boulder-main">
       <b>{{ name_popu[loop.index0] }}</b>,
       {{ grad_popu[loop.index0] }},
-      <i>{{ reps_popu[loop.index0] }} repeats</i><br>
-{% endfor %}
+      <i>{{ reps_popu[loop.index0] }} repeats</i>
+	</div>
+  </div>
 </div>
+
+{% endfor %}
 
 <h2>Boulders</h2>
 
