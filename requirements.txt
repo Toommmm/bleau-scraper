@@ -1,0 +1,5 @@
+jinja2
+requests
+pdfkit
+BeautifulSoup4
+lxml
