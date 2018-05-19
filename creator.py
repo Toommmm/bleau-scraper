@@ -69,4 +69,5 @@ def create_topo(location,area):
 }
 
     pdfkit.from_file(fullfilename,fullfilename.replace('.html','.pdf'),options=options)
+    print()
 

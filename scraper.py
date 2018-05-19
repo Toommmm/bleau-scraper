@@ -39,6 +39,15 @@ def scrape_area(location,url):
     soup = BeautifulSoup(response1,"lxml")
     soupTitle = soup.title.string
     soupName = soupTitle[0:soupTitle.find(" - ")]
+
+    if "Fond des Gorges" in soupName:
+        soupName += " Sector {}".format(soupTitle[-1:])
+    if "Cuvier Nord" in soupName and "TMF" in soupTitle:
+        soupName += " Sector TMP"
+    if "Franchard Isatis" in soupName and "Fond" in soupTitle:
+        soupName += " Fond"
+    if "Long Boyau" in soupName and "Cosmos" in soupTitle:
+        soupName += " Sector Cosmos"
     
     # Make new area 
     area = fb.Area(soupName)
