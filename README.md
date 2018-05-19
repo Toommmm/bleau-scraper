@@ -10,4 +10,4 @@ Run the code with
 ```
 ./run_scraper https://bleau.info/topos/topo1176.html
 ``` 
-to scrape a single topo page. When you leave out the optional URL, all areas in `areas.txt` are scraped.
+to scrape a single topo page. When you replace the URL with `all`, all areas in `areas.txt` are scraped.
