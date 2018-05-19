@@ -27,7 +27,8 @@ Manoury:                     https://bleau.info/topos/topo115.html
 Mont Aigu (Sector Cosmos):   https://bleau.info/topos/topo245.html
 Mont Simonet:                https://bleau.info/topos/topo247.html
 Roche aux Sabots:            https://bleau.info/topos/topo100.html
-Roche aux Sabots sud:            https://bleau.info/topos/topo1207.html
+Roche aux Sabots Est:        https://bleau.info/topos/topo1210.html
+Roche aux Sabots Sud:            https://bleau.info/topos/topo1207.html
 Roche qui Tourne:            https://bleau.info/topos/topo157.html
 Rocher de la Salamandre Est: https://bleau.info/topos/topo1176.html
 Rocher des Souris:           https://bleau.info/topos/topo218.html

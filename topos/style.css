@@ -23,6 +23,10 @@ p {
   font-size:0.875em;
 }
 
+div.date {
+	text-align: justify;
+	padding-bottom:20px;
+}
 div.info {
 	text-align: justify;
 	padding-bottom:20px;

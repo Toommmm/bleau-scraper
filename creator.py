@@ -1,4 +1,6 @@
 import os
+import time
+
 
 import jinja2
 import codecs
@@ -30,8 +32,10 @@ def create_topo(location,area):
     template = templateEnv.get_template( TEMPLATE_FILE )
 
     # Specify any input variables to the template as a dictionary.
-    templateVars = { "title"  : area.getName(),
+    templateVars = { 
+           "title"    : area.getName(),
            "road"     : area.getInfo(),
+           "date"     : f'Scraped on: {time.strftime("%d/%m/%Y")}',
            "list"     : area.getTopolist(),
            "numb"     : [x['numb'] for x in area.boulder_list],
            "name"     : [x['name'] for x in area.boulder_list],
