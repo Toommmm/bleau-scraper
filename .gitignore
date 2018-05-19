@@ -1,3 +1,11 @@
+# Project files
 topos/*.html
 topos/*.pdf
 topos/*.jpg
+
+# Python files
+__pycache__/
+*.pyc
+
+# Virtual environment files
+.venv/
